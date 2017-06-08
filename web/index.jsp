@@ -29,7 +29,7 @@
                     <input type="submit" value="Login">
                 </form>
                 <h3>Don't have a profile?</h3>
-                Setup a profile <a href="/newuser.jsp">here</a>
+                Setup a profile <!--a href="/newuser.jsp">here</a-->
             </c:when>
             <c:otherwise>
                 <h3>Hello, ${player.firstName}</h3>
