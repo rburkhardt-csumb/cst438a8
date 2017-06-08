@@ -3,12 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cst438a8f.login;
+package cst438a8f.player;
 
-import cst438a8f.data.PlayerDB;
-import cst438a8f.player.Player;
 import java.io.IOException;
-import static java.rmi.server.LogStream.log;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +17,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author Roderick Burkhardt
  */
-public class LoginServlet extends HttpServlet
+public class PlayerServlet extends HttpServlet
 {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
@@ -28,43 +26,25 @@ public class LoginServlet extends HttpServlet
         doPost(request, response);
     }
 
-    
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
         HttpSession session = request.getSession();
         
-        String url = "/index.jsp";
+        String url = "index.jsp";
         
-        // get current for index.jsp
         String action = request.getParameter("action");
         if (action == null)
         {
-            action = "login";
+            
         }
         
-        // perform action and set URL to the appropriate page, request and session values.
-        if (action.equals("login"))
-        {
-            String username = request.getParameter("username");
-            Player player;
-
-            if (PlayerDB.playerExists(username))
-            {        
-                player = PlayerDB.selectPlayer(username);
-                request.setAttribute("player", player);
-                //request.setAttribute("message", "player exists");
-            }
-            else
-            {
-                String message = "Invalid player, please try again or create user profile." + username;
-                request.setAttribute("player", null);
-                request.setAttribute("message", message);
-            }
-        }
+        String username = request.getParameter("username");
+        String firstName = request.getParameter("firstName");
+        String lastName = request.getParameter("lastName");
+        String password = request.getParameter("password");
         
-        getServletContext().getRequestDispatcher(url).forward(request, response);
     }
 
     /**
